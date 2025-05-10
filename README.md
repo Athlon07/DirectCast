@@ -187,11 +187,10 @@ def lambda_handler(event, context):
             ]
         }
       ],
-      "globalUploadSettings": {
-        "format": "PARQUET"
-        
+          "globalUploadSettings": {
+              "format": "PARQUET"
+          }
       }
-    }
     ```
   - Grant QuickSight permission to access `transformed-data`
 
