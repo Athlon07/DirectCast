@@ -1,12 +1,12 @@
 # Automated CSV Data Pipeline with AWS S3, Lambda, Glue, and QuickSight
 
-## 📌 Project Overview
+##  Project Overview
 
 This project sets up an automated data pipeline using AWS services to process, transform, and visualize CSV data. It leverages the power of **Amazon S3**, **AWS Lambda**, **AWS Glue**, and **Amazon QuickSight** to build a serverless and scalable data flow.
 
 ---
 
-## 📂 Architecture Summary
+##  Architecture Summary
 
 1. **Amazon S3**: Stores the data at various pipeline stages.
 2. **AWS Lambda**: Triggers on file uploads, performs data cleaning.
@@ -15,7 +15,7 @@ This project sets up an automated data pipeline using AWS services to process, t
 
 ---
 
-## 🧱 S3 Buckets Structure
+##  S3 Buckets Structure
 
 Set up the following S3 buckets:
 
@@ -27,7 +27,7 @@ Set up the following S3 buckets:
 
 ---
 
-## 🔐 IAM Roles and Permissions
+##  IAM Roles and Permissions
 
 Create two IAM roles with specific permissions:
 
@@ -51,7 +51,7 @@ Create two IAM roles with specific permissions:
 
 ---
 
-## ⚙️ AWS Lambda Setup
+##  AWS Lambda Setup
 
 1. **Trigger**: Configure the Lambda function to trigger on `s3:ObjectCreated:*` for the `raw-data` bucket.
 2. **Function Logic**:
@@ -71,7 +71,7 @@ def lambda_handler(event, context):
 
 ---
 
-## 🧪 AWS Glue ETL Job
+##  AWS Glue ETL Job
 
 1. **Job Type**: Spark (Python or Scala)
 2. **Source**: S3 `processed-data` bucket
@@ -85,7 +85,7 @@ def lambda_handler(event, context):
 
 ---
 
-## 📊 Amazon QuickSight Setup
+##  Amazon QuickSight Setup
 
 1. **Connect to S3**:
    - Set up a manifest file or use Athena if querying Parquet
@@ -101,7 +101,7 @@ def lambda_handler(event, context):
 
 ---
 
-## ✅ Final Flow Summary
+##  Final Flow Summary
 
 ```text
 [raw-data (S3)] 
@@ -121,7 +121,7 @@ def lambda_handler(event, context):
 
 ---
 
-## 📝 Notes
+##  Notes
 
 - Ensure bucket policies allow access between services
 - Set up CloudWatch logging for debugging Lambda and Glue jobs
@@ -129,7 +129,7 @@ def lambda_handler(event, context):
 
 ---
 
-## 📈 Benefits
+##  Benefits
 
 - Serverless and scalable
 - Low operational overhead
@@ -137,7 +137,7 @@ def lambda_handler(event, context):
 
 ---
 
-## 🔗 Useful Links
+##  Useful Links
 
 - [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/)
 - [AWS Glue Documentation](https://docs.aws.amazon.com/glue/)
