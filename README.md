@@ -153,7 +153,10 @@ def lambda_handler(event, context):
     }
 #This is just a sample lambda function that abbreviates everything to UpperCase
 ```
-
+4. **Configure environment Variables**:
+  Add a new environment variable with the following key-value pair:
+  - Key: `PROCESSED_BUCKET_NAME`
+  - Value: The name of your `processed-data bucket `(your-initials-processed-data-pipeline).
 ---
 
 ##  AWS Glue ETL Job
@@ -166,7 +169,7 @@ def lambda_handler(event, context):
    - Data type corrections
 4. **Destination**: Write to `transformed-data` bucket in Parquet or CSV format
 
-5. **Crawler (optional)**: Use a Glue Crawler to catalog data into AWS Glue Data Catalog.
+5. **Crawler**: Use a Glue Crawler to catalog data into AWS Glue Data Catalog.
 
 ---
 
@@ -174,7 +177,23 @@ def lambda_handler(event, context):
 
 1. **Connect to S3**:
    - Set up a manifest file or use Athena if querying Parquet
-   - Grant QuickSight permission to access `transformed-data`
+   - **Sample manifest.json**:
+     ```JSON
+     {
+      "fileLocations": [
+        {
+            "URIPrefixes": [
+                "s3://transformed-data-pipeline-bu/"
+            ]
+        }
+      ],
+      "globalUploadSettings": {
+        "format": "PARQUET"
+        // No comma here
+    }
+    }
+    ```
+  - Grant QuickSight permission to access `transformed-data`
 
 2. **Create Dataset**:
    - Import transformed data into QuickSight
