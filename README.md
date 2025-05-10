@@ -39,7 +39,34 @@ Create two IAM roles with specific permissions:
 
 - **Trust Relationship**:
   - Service: `lambda.amazonaws.com`
-
+ 
+- **LambdaS3Access Policy**:
+  ```JSON
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::your-initials-raw-data-pipeline/*",
+                "arn:aws:s3:::your-initials-processed-data-pipeline/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::your-initials-raw-data-pipeline",
+                "arn:aws:s3:::your-initials-processed-data-pipeline"
+            ]
+        }
+    ]
+  }
+  ```
 ### 2. Glue Execution Role
 
 - **Permissions**:
@@ -48,7 +75,7 @@ Create two IAM roles with specific permissions:
 
 - **Trust Relationship**:
   - Service: `glue.amazonaws.com`
-- **Policy**:
+- **GlueS3Access Policy**:
   ```JSON
   {
     "Version": "2012-10-17",
