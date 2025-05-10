@@ -191,7 +191,7 @@ def lambda_handler(event, context):
         "format": "PARQUET"
         
       }
-      }
+    }
     ```
   - Grant QuickSight permission to access `transformed-data`
 
