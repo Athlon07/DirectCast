@@ -117,11 +117,41 @@ Create two IAM roles with specific permissions:
 3. **Language**: Python (or Node.js)
 
 ```python
-# Example: Basic Lambda pseudocode
+import boto3
+import os
+
+s3 = boto3.client('s3')
+processed_bucket_name = os.environ['PROCESSED_BUCKET_NAME']
+
 def lambda_handler(event, context):
-    raw_file = get_csv_from_s3('raw-data')
-    cleaned_data = clean_csv(raw_file)
-    upload_to_s3(cleaned_data, 'processed-data')
+    for record in event['Records']:
+        bucket_name = record['s3']['bucket']['name']
+        key = record['s3']['object']['key']
+
+        print(f"Processing file: {key} from bucket: {bucket_name}")
+
+        try:
+            # Download the file from the raw bucket
+            response = s3.get_object(Bucket=bucket_name, Key=key)
+            file_content = response['Body'].read().decode('utf-8')
+
+            # Simple data cleaning: Convert to uppercase
+            processed_content = file_content.upper()
+
+            # Upload the processed content to the processed bucket
+            processed_key = f"processed_{key}"
+            s3.put_object(Bucket=processed_bucket_name, Key=processed_key, Body=processed_content.encode('utf-8'))
+
+            print(f"Processed file uploaded to: s3://{processed_bucket_name}/{processed_key}")
+
+        except Exception as e:
+            print(f"Error processing file {key}: {e}")
+
+    return {
+        'statusCode': 200,
+        'body': 'CSV files processed successfully!'
+    }
+#This is just a sample lambda function that abbreviates everything to UpperCase
 ```
 
 ---
